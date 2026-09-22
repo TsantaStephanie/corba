@@ -37,7 +37,7 @@ public class ServiceTraitementImpl extends ServiceTraitementGrpc.ServiceTraiteme
             // 3. Préparation de la réponse de succès
             VenteResponse response = VenteResponse.newBuilder()
                     .setSucces(true)
-                    .setMessage("Vente enregistrée avec succès !")
+                    .setMessage("Vente enregistre avec succes !")
                     .setIdVente(venteSauvegardee.getId())
                     .build();
 
