@@ -1,0 +1,6 @@
+# Cloner vcpkg si vous ne l'avez pas
+git clone https://github.com/microsoft/vcpkg.git
+.\vcpkg\bootstrap-vcpkg.bat
+
+# Installer gRPC et Protobuf en 64 bits
+.\vcpkg\vcpkg install grpc:x64-windows protobuf:x64-windows

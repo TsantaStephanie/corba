@@ -1,0 +1,38 @@
+// 1. Version de la syntaxe Protocol Buffers (proto3 est le standard actuel)
+syntax = "proto3";
+
+// Package global pour eviter les conflits de nommage
+package traitement;
+
+// 2. Options specifiques a la generation de code Java
+option java_multiple_files = true;                  // Genere un fichier .java par message/service
+option java_package = "com.exemple.grpc.stub";      // Package Java cible pour les classes generees
+
+
+// ==========================================
+// 3. Definition des Messages (Structure des donnees)
+// ==========================================
+
+// Requete envoyee par C++ a Java pour creer/traiter un fichier et enregistrer en BDD
+message FichierRequest {
+  string nom_fichier = 1;      // Nom du fichier
+  bytes contenu = 2;           // Contenu brut du fichier (texte ou binaire)
+  string type_action = 3;      // Ex: "IMPORT", "LOG", "EXPORT"
+}
+
+// Reponse renvoyee par Java a C++
+message FichierResponse {
+  bool succes = 1;             // Indique si le traitement a reussi
+  string message = 2;          // Message de confirmation ou d'erreur
+  int64 id_mysql = 3;          // L'ID de la ligne cree dans MySQL
+}
+
+
+// ==========================================
+// 4. Definition du Service gRPC (Les methodes a appeler)
+// ==========================================
+
+service ServiceTraitement {
+  // Une requete unaire classique (1 demande C++ -> 1 reponse Java)
+  rpc TraiterEtEnregistrer (FichierRequest) returns (FichierResponse);
+}
