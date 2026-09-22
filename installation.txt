@@ -2,5 +2,7 @@
 git clone https://github.com/microsoft/vcpkg.git
 .\vcpkg\bootstrap-vcpkg.bat
 
+                                       
+#installation de build Tools 2026 (développment C++ en desktop)
 # Installer gRPC et Protobuf en 64 bits
 .\vcpkg\vcpkg install grpc:x64-windows protobuf:x64-windows
