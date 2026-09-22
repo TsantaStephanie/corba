@@ -6,3 +6,31 @@ git clone https://github.com/microsoft/vcpkg.git
 #installation de build Tools 2026 (développment C++ en desktop)
 # Installer gRPC et Protobuf en 64 bits
 .\vcpkg\vcpkg install grpc:x64-windows protobuf:x64-windows
+
+
+PROCÉDURE DE LANCEMENT DU PROJET gRPC (C++ CLIENT / SPRING BOOT SERVEUR)
+
+Étape 1 : Démarrer le serveur Spring Boot
+   cd D:\Documents\corba\serveur
+   mvn spring-boot:run
+
+
+Étape 2 : Générer les fichiers C++ avec protoc
+   cd D:\Documents\corba\vcpkg
+   $VCPKG_TOOLS = "D:\Documents\corba\vcpkg\installed\x64-windows\tools"
+
+4. Exécutez la commande protoc pour générer les fichiers C++ :
+   & "$VCPKG_TOOLS\protobuf\protoc.exe" --cpp_out=. --grpc_out=. --plugin=protoc-gen-grpc="$VCPKG_TOOLS\grpc\grpc_cpp_plugin.exe" service.proto
+
+
+Étape 3 : Configurer et compiler le Client C++ avec CMake
+   mkdir build
+   cd build
+
+   cmake .. -DCMAKE_TOOLCHAIN_FILE="D:/Documents/corba/vcpkg/scripts/buildsystems/vcpkg.cmake"
+   cmake --build . --config Release
+
+
+Étape 4 : Exécuter le client C++
+1. Dans le dossier build, exécutez le binaire C++ généré :
+   .\Release\client_grpc.exe
